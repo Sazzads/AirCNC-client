@@ -4,6 +4,7 @@ import { useContext, useRef } from 'react'
 import { toast } from 'react-hot-toast'
 import { AuthContext } from '../../providers/AuthProvider'
 import { TbFidgetSpinner } from 'react-icons/tb'
+import { saveUser } from '../../api/auth'
 
 const SignUp = () => {
     const { loading, setLoading, updateUserProfile, signInWithGoogle, createUser } = useContext(AuthContext);
@@ -37,6 +38,8 @@ const SignUp = () => {
                         updateUserProfile(name, imageUrl)
                             .then(() => {
                                 toast.success('SignUp SuccessFull')
+                                //save users to db
+                                saveUser(result.user)
                                 navigate(from, { replace: true })
 
                             })
@@ -65,6 +68,8 @@ const SignUp = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+                //save users to db
+                saveUser(result.user)
                 navigate(from, { replace: true })
 
             })

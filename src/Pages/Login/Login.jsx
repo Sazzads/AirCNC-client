@@ -4,6 +4,7 @@ import { useContext, useRef } from 'react'
 import { toast } from 'react-hot-toast'
 import { AuthContext } from '../../providers/AuthProvider'
 import { TbFidgetSpinner } from 'react-icons/tb'
+import { saveUser } from '../../api/auth'
 
 const Login = () => {
     // const { user, loading, setLoading, createUser, signIn, signInWithGoogle, resetPassword, logOut, updateUserProfile } = useContext(AuthProvider)
@@ -17,6 +18,7 @@ const Login = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+                saveUser(result.user)
                 navigate(from, { replace: true })
 
             })
